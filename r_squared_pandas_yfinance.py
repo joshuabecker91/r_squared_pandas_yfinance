@@ -10,6 +10,7 @@ import pendulum
 import matplotlib.pyplot as plt
 # pip install matplotlib pendulum
 # import csv
+import statistics
 
 # ---------------------------------------------------------------------------------------
 
@@ -20,11 +21,36 @@ import matplotlib.pyplot as plt
 # market_price = stock_info['regularMarketPrice']
 # print(market_price)
 
+a = input('Stock 1:')
+b = input('Stock 2:')
+# you want stock 1 to be the smaller one so ratio > 1.0 so we reassign if input backwards
+stock_1_current_price = yf.Ticker(a).info['regularMarketPrice']
+stock_2_current_price = yf.Ticker(b).info['regularMarketPrice']
+print(stock_1_current_price)
+print(stock_2_current_price)
+
+a1 = int(stock_1_current_price)
+b1 = int(stock_2_current_price)
+print(type(a))
+print(type(b))
+
+if a1 > b1:
+    stock_1 = b
+    stock_2 = a
+else:
+    stock_1 = a
+    stock_2 = b
+
+
+print(stock_1_current_price)
+print(stock_2_current_price)
+print(type(stock_1_current_price))
+print(type(stock_2_current_price))
 
 # ---------------------------------------------------------------------------------------
 
 # Stock 1
-price_history_1 = yf.Ticker('LOW').history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+price_history_1 = yf.Ticker(stock_1).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
                                    interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
                                    actions=False)
 print(price_history_1)
@@ -34,7 +60,7 @@ print(time_series1)
 # ---------------------------------------------------------------------------------------
 
 # Stock 2
-price_history_2 = yf.Ticker('HD').history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+price_history_2 = yf.Ticker(stock_2).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
                                    interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
                                    actions=False)
 print(price_history_2)
@@ -64,7 +90,7 @@ for x in range(0, len(time_series1)):
     print(time_series2[x] / time_series1[x])
     days_ratio = (time_series2[x] / time_series1[x])
     ratio.append(days_ratio)
-print(ratio)
+# print(ratio)
 
 average_ratio = (sum(ratio) / len(ratio))
 print(average_ratio)
@@ -81,8 +107,8 @@ for x in range(0, len(ratio)):
 # ---------------------------------------------------------------------------------------
 
 #create DataFrame
-df = pd.DataFrame({'LOW': time_series1,
-                   'HD': time_series2,
+df = pd.DataFrame({stock_1 : time_series1,
+                   stock_2 : time_series2,
                    'Ratio' : ratio,
                    'Spread' : spread,
                    })
@@ -94,8 +120,8 @@ print(df)
 df.to_csv('result.csv')
 
 
-
-
+st_dev = statistics.stdev(spread)
+print(st_dev)
 
 # Standard Deviation of Spread
 
@@ -103,13 +129,52 @@ df.to_csv('result.csv')
 # ---------------------------------------------------------------------------------------
 
 # backtest pnl
-# pnL = []
-# for x in range(0,spread):
+trades_pnl = []
+trade_enter = []
+trade_exit = []
+open_price = 0
+close_price = 0
+for x in range(0,len(spread)):
+    if spread[x] > st_dev and open_price == 0:
+        open_price = spread[x]
+        trade_enter.append(x)
+        print("trade opened at: ", open_price)
+    elif spread[x] < st_dev*-1 and open_price == 0:
+        open_price = spread[x]
+        trade_enter.append(x)
+        print("trade opened at: ", open_price)
+    if open_price > 1 and spread[x] < 1:
+        close_price = spread[x]
+        trades_pnl.append(open_price - close_price)
+        trade_exit.append(x)
+        print("trade closed at: ", close_price)
+        open_price = 0
+        close_price = 0
+    if open_price < -1 and spread[x] > -1:
+        close_price = spread[x]
+        trades_pnl.append(close_price - open_price)
+        trade_exit.append(x)
+        print("trade closed at: ", close_price)
+        open_price = 0
+        close_price = 0
+
+print(trades_pnl)
+print(trade_enter)
+print(trade_exit)
+print(sum(trades_pnl))
 
 
+print("capital used on leg 1:", time_series1[0]*average_ratio*100)
+print("capital used on leg 2:", time_series2[0]*100)
+capital_leg_1 = time_series1[0]*average_ratio*100
+capital_leg_2 = time_series2[0]*100
 
+total_capital = capital_leg_1 + capital_leg_2
+print(total_capital)
+total_return = (sum(trades_pnl)*100) / total_capital
 
-
+print("average ratio", average_ratio)
+print("total return", total_return*100)
 
 
 # ---------------------------------------------------------------------------------------
@@ -148,7 +213,7 @@ df.to_csv('result.csv')
 # model = LinearRegression()
 
 #define predictor and response variables
-# X, y = df[["hours", "prep_exams"]], df.score
+# X, y = df[[time_series1, time_series2]], df.score
 
 #fit regression model
 # model.fit(X, y)
