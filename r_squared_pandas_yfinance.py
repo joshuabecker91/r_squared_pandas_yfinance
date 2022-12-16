@@ -57,7 +57,7 @@ print(time_series2)
 
 # ---------------------------------------------------------------------------------------
 
-# ratio
+# ratio - we should get a rolling one year average? rolling 90 day average?
 ratio = []
 for x in range(0, len(time_series1)):
     print(time_series2[x], time_series1[x])
