@@ -7,6 +7,8 @@ import statistics
 # pip install numpy
 # pip install yfinance
 
+# ---------------------------------------------------------------------------------------
+
 # other method for r squared
 # from sklearn.linear_model import LinearRegression
 # pip install scipy
@@ -17,6 +19,9 @@ import statistics
 # import matplotlib.pyplot as plt
 # pip install matplotlib pendulum
 
+# can import list of spy 500 with yahoo_fin seperate library
+# tickers_sp500()
+
 # ---------------------------------------------------------------------------------------
 
 # stock_info = yf.Ticker('TSLA').info
@@ -26,18 +31,43 @@ import statistics
 # market_price = stock_info['regularMarketPrice']
 # print(market_price)
 
+# ---------------------------------------------------------------------------------------
+
+# for testing to see if yahoo finance is having issues
+# stock_1_current_price = yf.Ticker(a).info # ['regularMarketPreviousClose']
+# stock_2_current_price = yf.Ticker(b).info # ['regularMarketPreviousClose']
+# print(stock_1_current_price)
+# print(stock_2_current_price)
+
+# ---------------------------------------------------------------------------------------
+
+# this was working and not working anymore
+# stock_1_current_price = yf.Ticker(a).info['regularMarketPrice']
+# stock_2_current_price = yf.Ticker(b).info['regularMarketPrice']
+
+
+# Input two stocks and set stock 1 and 2 ------------------------------------------------
+
 a = input('Stock 1:')
 b = input('Stock 2:')
+
 # you want stock 1 to be the smaller one so ratio > 1.0 so we reassign if input backwards
-stock_1_current_price = yf.Ticker(a).info['regularMarketPrice']
-stock_2_current_price = yf.Ticker(b).info['regularMarketPrice']
-print(stock_1_current_price)
-print(stock_2_current_price)
+stock_1_current_price = yf.Ticker(a).history(period='1d', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+                                   interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+                                   actions=False)
+stock_2_current_price = yf.Ticker(b).history(period='1d', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+                                   interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+                                   actions=False)
+
+stock_1_current_price = stock_1_current_price['Close']
+stock_2_current_price = stock_2_current_price['Close']
+# print(stock_1_current_price)
+# print(stock_2_current_price)
 
 a1 = int(stock_1_current_price)
 b1 = int(stock_2_current_price)
-print(type(a))
-print(type(b))
+# print(type(a))
+# print(type(b))
 
 if a1 > b1:
     stock_1 = b
@@ -46,11 +76,10 @@ else:
     stock_1 = a
     stock_2 = b
 
-
-print(stock_1_current_price)
-print(stock_2_current_price)
-print(type(stock_1_current_price))
-print(type(stock_2_current_price))
+print("stock 1 is: ", a, stock_1_current_price)
+print("stock 2 is: ", b, stock_2_current_price)
+# print(type(stock_1_current_price))
+# print(type(stock_2_current_price))
 
 # ---------------------------------------------------------------------------------------
 
@@ -58,7 +87,7 @@ print(type(stock_2_current_price))
 price_history_1 = yf.Ticker(stock_1).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
                                    interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
                                    actions=False)
-print(price_history_1)
+# print(price_history_1)
 time_series1 = list(price_history_1['Close'])
 print(time_series1)
 
@@ -68,46 +97,39 @@ print(time_series1)
 price_history_2 = yf.Ticker(stock_2).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
                                    interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
                                    actions=False)
-print(price_history_2)
+# print(price_history_2)
 time_series2 = list(price_history_2['Close'])
 print(time_series2)
 
-# ---------------------------------------------------------------------------------------
-
-# date = list(price_history_1['Date'])
-# print(date)
-
-
-# print(time_series1[0])
-
-# print(time_series2[0])
-
-# print(time_series2[0] / time_series1[0])
-# test = int(time_series2[0] / time_series1[0])
-# print(type(test))
 
 # ---------------------------------------------------------------------------------------
 
 # ratio - we should get a rolling one year average? rolling 90 day average?
 ratio = []
 for x in range(0, len(time_series1)):
-    print(time_series2[x], time_series1[x])
-    print(time_series2[x] / time_series1[x])
+    # print(time_series2[x], time_series1[x])
+    # print(time_series2[x] / time_series1[x])
     days_ratio = (time_series2[x] / time_series1[x])
     ratio.append(days_ratio)
 # print(ratio)
 
 average_ratio = (sum(ratio) / len(ratio))
-print(average_ratio)
+# print("average ratio: ", average_ratio)
 
 # ---------------------------------------------------------------------------------------
 
 # spread
 spread = []
 for x in range(0, len(ratio)):
-    print((time_series1[x]*average_ratio - time_series2[x]) - average_ratio)
+    # print((time_series1[x]*average_ratio - time_series2[x]) - average_ratio)
     days_spread = ((time_series1[x]*average_ratio - time_series2[x]) - average_ratio)
     spread.append(days_spread)
+
+# ---------------------------------------------------------------------------------------
+
+# Standard Deviation of Spread
+st_dev = statistics.stdev(spread)
+print("standard dev: ", st_dev)
 
 # ---------------------------------------------------------------------------------------
 
@@ -125,12 +147,10 @@ print(df)
 df.to_csv('result.csv')
 
 
-# Standard Deviation of Spread
-st_dev = statistics.stdev(spread)
-print(st_dev)
-
-
 # ---------------------------------------------------------------------------------------
+
+# find biggest open loss for each trade
+# pnl graph / equity graph
 
 # backtest pnl
 trades_pnl = []
@@ -162,10 +182,11 @@ for x in range(0,len(spread)):
         open_price = 0
         close_price = 0
 
-print(trades_pnl)
-print(trade_enter)
-print(trade_exit)
-print(sum(trades_pnl))
+print("trades PnL: ", trades_pnl)
+print("trade_enter: ", trade_enter)
+print("trade_exit: ", trade_exit)
+print("total PnL per unit", sum(trades_pnl))
+print("total profit per 100 shares: $", sum(trades_pnl)*100)
 
 
 print("capital used on leg 1:", time_series1[0]*average_ratio*100)
@@ -174,13 +195,13 @@ capital_leg_1 = time_series1[0]*average_ratio*100
 capital_leg_2 = time_series2[0]*100
 
 total_capital = capital_leg_1 + capital_leg_2
-print(total_capital)
+print("total capital used: ", total_capital)
 total_return = (sum(trades_pnl)*100) / total_capital
 
 
 print("standard dev: ", st_dev)
-print("average ratio", average_ratio)
-print("total return", total_return*100, "%")
+print("average ratio: ", average_ratio)
+print("total return: ", total_return*100, "%")
 
 
 # we want to make it monitor the ratios every minute, not just once a day...
