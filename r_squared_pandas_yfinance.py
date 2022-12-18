@@ -39,11 +39,25 @@ import statistics
 # print(stock_1_current_price)
 # print(stock_2_current_price)
 
-# ---------------------------------------------------------------------------------------
 
 # this was working and not working anymore
 # stock_1_current_price = yf.Ticker(a).info['regularMarketPrice']
 # stock_2_current_price = yf.Ticker(b).info['regularMarketPrice']
+
+# ---------------------------------------------------------------------------------------
+
+# make modular with different functions to call for loop 
+# and write to csv
+
+#  10 semi conductors call the function double for loop skip itself and write to cvs the results of each
+
+
+# smh 
+stock_list = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'amat', 'adi', 'klac', 'lrcx', 'qcom', 'intc', 'mu' 'amd']
+
+
+
+
 
 
 # Input two stocks and set stock 1 and 2 ------------------------------------------------
@@ -76,8 +90,8 @@ else:
     stock_1 = a
     stock_2 = b
 
-print("stock 1 is: ", a, stock_1_current_price)
-print("stock 2 is: ", b, stock_2_current_price)
+print("stock 1 is: ", stock_1, stock_1_current_price)
+print("stock 2 is: ", stock_2, stock_2_current_price)
 # print(type(stock_1_current_price))
 # print(type(stock_2_current_price))
 
@@ -129,7 +143,15 @@ for x in range(0, len(ratio)):
 
 # Standard Deviation of Spread
 st_dev = statistics.stdev(spread)
-print("standard dev: ", st_dev)
+# print("standard dev: ", st_dev)
+
+# R squared -----------------------------------------------------------------------------
+
+corr_matrix = numpy.corrcoef(time_series1, time_series2)
+corr = corr_matrix[0,1]
+R_sq = corr**2
+
+# print("r squared: ", R_sq)
 
 # ---------------------------------------------------------------------------------------
 
@@ -146,7 +168,6 @@ print(df)
 
 df.to_csv('result.csv')
 
-
 # ---------------------------------------------------------------------------------------
 
 # find biggest open loss for each trade
@@ -156,6 +177,7 @@ df.to_csv('result.csv')
 trades_pnl = []
 trade_enter = []
 trade_exit = []
+hold_period = []
 open_price = 0
 close_price = 0
 for x in range(0,len(spread)):
@@ -171,6 +193,7 @@ for x in range(0,len(spread)):
         close_price = spread[x]
         trades_pnl.append(open_price - close_price)
         trade_exit.append(x)
+        hold_period.append(trade_exit[len(trade_exit) - 1] - trade_enter[len(trade_enter) - 1])
         print("trade closed at: ", close_price)
         open_price = 0
         close_price = 0
@@ -178,13 +201,17 @@ for x in range(0,len(spread)):
         close_price = spread[x]
         trades_pnl.append(close_price - open_price)
         trade_exit.append(x)
+        hold_period.append(trade_exit[len(trade_exit) - 1] - trade_enter[len(trade_enter) - 1])
         print("trade closed at: ", close_price)
         open_price = 0
         close_price = 0
 
 print("trades PnL: ", trades_pnl)
-print("trade_enter: ", trade_enter)
-print("trade_exit: ", trade_exit)
+print("trade enter: ", trade_enter)
+print("trade exit: ", trade_exit)
+print("hold period: ", hold_period)
+print("average hold period: ", sum(hold_period) / len(hold_period) )
+print("number of round trips: ", len(hold_period))
 print("total PnL per unit", sum(trades_pnl))
 print("total profit per 100 shares: $", sum(trades_pnl)*100)
 
@@ -198,22 +225,15 @@ total_capital = capital_leg_1 + capital_leg_2
 print("total capital used: ", total_capital)
 total_return = (sum(trades_pnl)*100) / total_capital
 
-
+print("r squared: ", R_sq)
 print("standard dev: ", st_dev)
 print("average ratio: ", average_ratio)
 print("total return: ", total_return*100, "%")
 
-
 # we want to make it monitor the ratios every minute, not just once a day...
 
+# csv write line for each loop
 
-# r squared -----------------------------------------------------------------------------
-
-corr_matrix = numpy.corrcoef(time_series1, time_series2)
-corr = corr_matrix[0,1]
-R_sq = corr**2
-
-print("r squared: ", R_sq)
 
 # ---------------------------------------------------------------------------------------
 
