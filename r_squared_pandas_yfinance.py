@@ -15,8 +15,8 @@ import statistics
 # pip install scikit-learn
 
 # for charts
-# import pendulum
-# import matplotlib.pyplot as plt
+import pendulum
+import matplotlib.pyplot as plt
 # pip install matplotlib pendulum
 
 # can import list of spy 500 with yahoo_fin seperate library
@@ -53,11 +53,7 @@ import statistics
 
 
 # smh 
-stock_list = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'amat', 'adi', 'klac', 'lrcx', 'qcom', 'intc', 'mu' 'amd']
-
-
-
-
+# stock_list = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'amat', 'adi', 'klac', 'lrcx', 'qcom', 'intc', 'mu' 'amd']
 
 
 # Input two stocks and set stock 1 and 2 ------------------------------------------------
@@ -238,7 +234,7 @@ print("total return: ", total_return*100, "%")
 # ---------------------------------------------------------------------------------------
 
 # Creating a Graph / Chart
-# dt_list = [pendulum.parse(str(dt)).float_timestamp for dt in list(price_history.index)]
-# plt.style.use('dark_background')
-# plt.plot(dt_list, time_series, linewidth=2)
-
+dt_list = [pendulum.parse(str(dt)).float_timestamp for dt in list(price_history_1.index)]
+plt.style.use('dark_background')
+plt.plot(dt_list, spread, linewidth=2)
+plt.show()
