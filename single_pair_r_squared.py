@@ -95,7 +95,7 @@ print("stock 2 is: ", stock_2, stock_2_current_price)
 
 # Stock 1
 price_history_1 = yf.Ticker(stock_1).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
-                                   interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+                                   interval='60m', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
                                    actions=False)
 # print(price_history_1)
 time_series1 = list(price_history_1['Close'])
@@ -105,7 +105,7 @@ print(time_series1)
 
 # Stock 2
 price_history_2 = yf.Ticker(stock_2).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
-                                   interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+                                   interval='60m', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
                                    actions=False)
 # print(price_history_2)
 time_series2 = list(price_history_2['Close'])

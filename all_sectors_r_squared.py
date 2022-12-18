@@ -59,23 +59,37 @@ def correlation(a, b):
 
     # ---------------------------------------------------------------------------------------
 
-    # Stock 1
-    price_history_1 = yf.Ticker(stock_1).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
-                                    interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
-                                    actions=False)
-    # print(price_history_1)
-    time_series1 = list(price_history_1['Close'])
-    print(time_series1)
+    try:
+        # Stock 1
+        price_history_1 = yf.Ticker(stock_1).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+                                        interval='60m', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+                                        actions=False)
+        # print(price_history_1)
+        time_series1 = list(price_history_1['Close'])
+        print(time_series1)
+    except:
+        print("error: ", stock_1, stock_2)
+        return
 
     # ---------------------------------------------------------------------------------------
 
-    # Stock 2
-    price_history_2 = yf.Ticker(stock_2).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
-                                    interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
-                                    actions=False)
-    # print(price_history_2)
-    time_series2 = list(price_history_2['Close'])
-    print(time_series2)
+    try:
+        # Stock 2
+        price_history_2 = yf.Ticker(stock_2).history(period='1y', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
+                                        interval='60m', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
+                                        actions=False)
+        # print(price_history_2)
+        time_series2 = list(price_history_2['Close'])
+        print(time_series2)
+    except:
+        print("error: ", stock_1, stock_2)
+        return
+
+    # catch errors where data has inconsistencies -------------------------------------------
+
+    if len(time_series1) != len(time_series2):
+        print("error: ", "length of arrays are not the same")
+        return
 
     # ---------------------------------------------------------------------------------------
 
@@ -108,9 +122,13 @@ def correlation(a, b):
 
     # R squared -----------------------------------------------------------------------------
 
-    corr_matrix = numpy.corrcoef(time_series1, time_series2)
-    corr = corr_matrix[0,1]
-    R_sq = corr**2
+    try:
+        corr_matrix = numpy.corrcoef(time_series1, time_series2)
+        corr = corr_matrix[0,1]
+        R_sq = corr**2
+    except:
+        print("error: ", "error calculating R_sq correlation")
+        return
 
     # print("r squared: ", R_sq)
 
@@ -191,6 +209,7 @@ def correlation(a, b):
     print("trade exit: ", trade_exit)
     print("hold period: ", hold_period)
     print("average hold period: ", sum(hold_period) / len(hold_period) )
+    print("largest winner: ", max(trades_pnl) / (total_capital/100))
     print("max open loss: ", max_open_loss / (total_capital/100))
     print("number of round trips: ", len(hold_period))
     print("total PnL per unit", sum(trades_pnl))
@@ -209,7 +228,7 @@ def correlation(a, b):
 
     # csv write line for each loop
     with open('candidates.csv', 'a', newline='') as csvfile:
-        fieldnames = ['Stock 1', 'Stock 2', 'Average Ratio', 'Total Capital Used', 'Standard Dev', 'Average Hold', 'Trade Count', 'Max Open Loss', 'R Squared', 'Total Return']
+        fieldnames = ['Stock 1', 'Stock 2', 'Average Ratio', 'Total Capital Used', 'Standard Dev', 'Average Hold', 'Trade Count', 'Largest Winner', 'Max Open Loss', 'R Squared', 'Total Return']
         thewriter = csv.DictWriter(csvfile, fieldnames=fieldnames)
         # thewriter.writeheader()
         thewriter.writerow({'Stock 1': stock_1,
@@ -219,11 +238,11 @@ def correlation(a, b):
                             'Standard Dev' : st_dev,
                             'Average Hold' : sum(hold_period) / len(hold_period),
                             'Trade Count' : len(hold_period),
+                            'Largest Winner' : max(trades_pnl) / (total_capital/100),
                             'Max Open Loss' : max_open_loss / (total_capital/100),
                             'R Squared' : R_sq,
                             'Total Return' : total_return})
         # for item in data:
-
 
     # ---------------------------------------------------------------------------------------
 
@@ -234,7 +253,7 @@ def correlation(a, b):
     plt.savefig((cwd + '/figs/' + f'{a}_{b}.png'))
     plt.clf()
     # plt.show()
-
+    # add standard dev line
 
 # ---------------------------------------------------------------------------------------
 
@@ -243,7 +262,7 @@ def correlation(a, b):
 xly = ['amzn', 'tsla', 'mcd', 'hd', 'low', 'nke', 'sbux', 'tjx', 'tgt', 'bkng']
 
 # XLP Cons Staples 
-xlp = ['pg', 'pep', 'ko', 'cost', 'wmt', 'mdlz', 'pm', 'mo', 'cl', 'adm']
+xlp = ['pg', 'pep', 'ko', 'cost', 'wmt', 'pm', 'mo', 'cl', 'adm'] # 'mdlz', 
 
 # XLF Financial  brk.b
 xlf = ['jpm', 'bac', 'wfc', 'schw', 'gs', 'ms', 'spgi', 'blk', 'cb']
@@ -265,7 +284,7 @@ qqq = ['aapl', 'amzn', 'msft', 'goog', 'meta', 'nvda', 'tsla', 'pypl', 'nflx'] #
 xlc = ['meta', 'googl', 'nflx', 'chtr', 'cmcsa', 'tmus', 'dis', 't', 'vz']
 
 # SMH Semiconductors 
-smh = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'amat', 'adi', 'klac', 'lrcx', 'qcom', 'mu', 'amd'] # 'intc'
+smh = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'adi', 'klac', 'lrcx', 'qcom', 'mu', 'amd'] # 'intc', 'amat', error
 
 # lots of dividends - avoid for now, don't want to be short and pay the dividends
 # XLE Energy
@@ -294,3 +313,7 @@ sector(xlc)
 sector(smh)
 
 # crypto and forex...yfinance tickers and look into
+# bring timeframe down to 60 minutes to increase accuracy. can also add more stocks to list
+
+    # updated to 30 minutes. we are now getting 50 less results... throwing lots of errors?   
+    # post a error create new file with name and track how many
