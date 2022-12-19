@@ -5,3 +5,5 @@ R Squared Correlation Trading between two stocks where we identify correlatation
 Technologies used: Python, Pandas, numpy, pendulum, matplotlib, yfinance, csv
 
 Currently in development...
+
+https://user-images.githubusercontent.com/98496684/208353463-afc7a1d4-fd01-4be0-9d16-0477609dc1f3.mp4
