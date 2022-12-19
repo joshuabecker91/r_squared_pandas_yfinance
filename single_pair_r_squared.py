@@ -237,4 +237,7 @@ print("total return: ", total_return*100, "%")
 dt_list = [pendulum.parse(str(dt)).float_timestamp for dt in list(price_history_1.index)]
 plt.style.use('dark_background')
 plt.plot(dt_list, spread, linewidth=2)
+plt.axhline(y=st_dev, xmin=0.0, xmax=1.0, color='r')
+plt.axhline(y=0, xmin=0.0, xmax=1.0, color='w')
+plt.axhline(y=(st_dev*-1), xmin=0.0, xmax=1.0, color='r')
 plt.show()

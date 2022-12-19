@@ -69,6 +69,8 @@ def correlation(a, b):
         print(time_series1)
     except:
         print("error: ", stock_1, stock_2)
+        with open('error_log.txt', 'a') as f:
+            f.write(f'{stock_1} {stock_2} error getting data for {stock_1}')
         return
 
     # ---------------------------------------------------------------------------------------
@@ -83,12 +85,16 @@ def correlation(a, b):
         print(time_series2)
     except:
         print("error: ", stock_1, stock_2)
+        with open('error_log.txt', 'a') as f:
+            f.write(f'{stock_1} {stock_2} error getting data for {stock_2}')
         return
 
     # catch errors where data has inconsistencies -------------------------------------------
 
     if len(time_series1) != len(time_series2):
         print("error: ", "length of arrays are not the same")
+        with open('error_log.txt', 'a') as f:
+            f.write(f'{stock_1} {stock_2} length of arrays are not the same')
         return
 
     # ---------------------------------------------------------------------------------------
@@ -128,6 +134,8 @@ def correlation(a, b):
         R_sq = corr**2
     except:
         print("error: ", "error calculating R_sq correlation")
+        with open('error_log.txt', 'a') as f:
+            f.write(f'{stock_1} {stock_2} error calculating R_sq correlation')
         return
 
     # print("r squared: ", R_sq)
@@ -236,7 +244,7 @@ def correlation(a, b):
                             'Average Ratio' : average_ratio,
                             'Total Capital Used' : total_capital,
                             'Standard Dev' : st_dev,
-                            'Average Hold' : sum(hold_period) / len(hold_period),
+                            'Average Hold' : (sum(hold_period) / 7) / len(hold_period), # hold period divided by 7 if 60 min. remove if doing 1d period
                             'Trade Count' : len(hold_period),
                             'Largest Winner' : max(trades_pnl) / (total_capital/100),
                             'Max Open Loss' : max_open_loss / (total_capital/100),
@@ -250,6 +258,10 @@ def correlation(a, b):
     dt_list = [pendulum.parse(str(dt)).float_timestamp for dt in list(price_history_1.index)]
     plt.style.use('dark_background')
     plt.plot(dt_list, spread, linewidth=2)
+    # plot standard dev line range and equilibrium zero line
+    plt.axhline(y=st_dev, xmin=0.0, xmax=1.0, color='r')
+    plt.axhline(y=0, xmin=0.0, xmax=1.0, color='w')
+    plt.axhline(y=(st_dev*-1), xmin=0.0, xmax=1.0, color='r')
     plt.savefig((cwd + '/figs/' + f'{a}_{b}.png'))
     plt.clf()
     # plt.show()
@@ -278,13 +290,13 @@ xlb = ['lin', 'apd', 'shw', 'ctva', 'fcx', 'ecl', 'nue', 'nem', 'dow', 'alb']
 
 # XLK / QQQ Technology
 xlk = ['aapl', 'msft', 'v', 'nvda', 'ma', 'avgo', 'csco', 'acn', 'crm', 'adbe', 'qcom', 'ibm', 'amd', 'amat', 'intc']
-qqq = ['aapl', 'amzn', 'msft', 'goog', 'meta', 'nvda', 'tsla', 'pypl', 'nflx'] # 'adbe', 
+qqq = ['aapl', 'amzn', 'msft', 'goog', 'meta', 'nvda', 'tsla', 'pypl', 'adbe', 'nflx'] # 'adbe', 
 
 # XLC Communications
 xlc = ['meta', 'googl', 'nflx', 'chtr', 'cmcsa', 'tmus', 'dis', 't', 'vz']
 
 # SMH Semiconductors 
-smh = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'adi', 'klac', 'lrcx', 'qcom', 'mu', 'amd'] # 'intc', 'amat', error
+smh = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'adi', 'klac', 'lrcx', 'qcom', 'intc', 'amat', 'mu', 'amd'] # 'intc', 'amat', error
 
 # lots of dividends - avoid for now, don't want to be short and pay the dividends
 # XLE Energy
