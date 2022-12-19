@@ -102,6 +102,8 @@ if one_week_range > st_dev_of_atr_14_one_week:
 
 
 
+# run backtest with chart showing dot every time covered call signal was triggered
+# have program listen and send email anytime trigger
 
 
 
