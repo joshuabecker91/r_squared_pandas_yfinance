@@ -71,6 +71,7 @@ def correlation(a, b):
         print("error: ", stock_1, stock_2)
         with open('error_log.txt', 'a') as f:
             f.write(f'{stock_1} {stock_2} error getting data for {stock_1}')
+            f.write('\n') 
         return
 
     # ---------------------------------------------------------------------------------------
@@ -87,6 +88,7 @@ def correlation(a, b):
         print("error: ", stock_1, stock_2)
         with open('error_log.txt', 'a') as f:
             f.write(f'{stock_1} {stock_2} error getting data for {stock_2}')
+            f.write('\n') 
         return
 
     # catch errors where data has inconsistencies -------------------------------------------
@@ -95,6 +97,7 @@ def correlation(a, b):
         print("error: ", "length of arrays are not the same")
         with open('error_log.txt', 'a') as f:
             f.write(f'{stock_1} {stock_2} length of arrays are not the same')
+            f.write('\n') 
         return
 
     # ---------------------------------------------------------------------------------------
@@ -136,9 +139,8 @@ def correlation(a, b):
         print("error: ", "error calculating R_sq correlation")
         with open('error_log.txt', 'a') as f:
             f.write(f'{stock_1} {stock_2} error calculating R_sq correlation')
+            f.write('\n') 
         return
-
-    # print("r squared: ", R_sq)
 
     # ---------------------------------------------------------------------------------------
 

@@ -206,7 +206,7 @@ print("trades PnL: ", trades_pnl)
 print("trade enter: ", trade_enter)
 print("trade exit: ", trade_exit)
 print("hold period: ", hold_period)
-print("average hold period: ", sum(hold_period) / len(hold_period) )
+print("average hold period: ", sum(hold_period) / len(hold_period) ) #edit / 7 for 60m
 print("number of round trips: ", len(hold_period))
 print("total PnL per unit", sum(trades_pnl))
 print("total profit per 100 shares: $", sum(trades_pnl)*100)
