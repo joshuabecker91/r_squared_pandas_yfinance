@@ -1,10 +1,10 @@
 import schedule
 import time
 
-def show_name():
+def scheduled_function():
     print("The code is running\n")
 
-schedule.every(4).seconds.do(show_name)
+schedule.every(4).seconds.do(scheduled_function)
 
 while 1:
     schedule.run_pending()
