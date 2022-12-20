@@ -328,6 +328,3 @@ sector(smh)
 
 # crypto and forex...yfinance tickers and look into
 # bring timeframe down to 60 minutes to increase accuracy. can also add more stocks to list
-
-    # updated to 30 minutes. we are now getting 50 less results... throwing lots of errors?   
-    # post a error create new file with name and track how many
