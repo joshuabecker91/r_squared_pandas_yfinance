@@ -56,8 +56,7 @@ atr = sum(atr_14_array) / 14
 
 print(atr)
 
-
-
+# ---------------------------------------------------------------------------------------
 
 # ATR
 atr_week = atr * 5
@@ -75,20 +74,21 @@ print("ATR: ", atr)
 print("one week ATR range: ", atr_week)
 print("one week current range: ", one_week_range)
 
-
-
+# ---------------------------------------------------------------------------------------
 
 # Standard Deviation of ATR
 st_dev_of_atr_14_one_day = statistics.stdev(atr_14_array)
-print("standard dev one day: ", st_dev_of_atr_14_one_day)
+print("standard dev range one day: ", st_dev_of_atr_14_one_day)
 
-# Signal, move is greater than 5 days standard dev plus .68 of the weekly consecutive / 2. triggers sell signal for covered call / credit put spread
-st_dev_of_atr_14_one_week = (atr_week*.68)  # + (statistics.stdev(atr_14_array)/2)*5
-print("standard dev one week: ", st_dev_of_atr_14_one_week)
+# Signal, move is greater than 5 days standard dev range. triggers sell signal for covered call / or credit put spread downside
+# 68 % of the time it does not exceed this range. so we can sell a covered call into this while premium is rich
+st_dev_of_atr_14_one_week = (atr_week*.68)
+print("standard dev range one week: ", st_dev_of_atr_14_one_week)
 
 if one_week_range > st_dev_of_atr_14_one_week:
-    print("exceeds one week consecutive range .68 one standard dev, consider selling covered call here")
+    print("exceeds one standard dev of one week range, consider selling covered call here")
 
+# ---------------------------------------------------------------------------------------
 
 # Notes
 
@@ -100,10 +100,10 @@ if one_week_range > st_dev_of_atr_14_one_week:
 
 # monitor open positions, when new trade ticker is added to dictionary and runs through measuring open PnL percent. alert >70%
 
-
-
 # run backtest with chart showing dot every time covered call signal was triggered
+
 # have program listen and send email anytime trigger
+
 
 
 
