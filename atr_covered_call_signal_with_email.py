@@ -175,6 +175,11 @@ def send_email(data):
 
 #------------------------------------------------------------------------------------------------
 
+# def clear_results():
+    # results = []
+
+# schedule.every(5).days.do(clear_results)
+
 schedule.every(5).minutes.do(atr_scan)
 
 while True:
