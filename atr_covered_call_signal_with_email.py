@@ -39,9 +39,7 @@ results = []
 
 # ---------------------------------------------------------------------------------------
 
-stock_list = ['AMZN', 'GOOG']
-
-# ['AMZN', 'GOOG', 'TSLA', 'NVDA', 'NFLX', 'PYPL', 'META', 'SHOP', 'SQ', 'CRWD', 'ETHE', 'UPST', 'CAT', 'HD', 'LRCX', 'AMD', 'ABNB', 'ADBE', 'CRM', 'ROKU', 'DDOG', 'NET'] # 'SE', 'MGK', 'QYLD'
+stock_list = ['AMZN', 'GOOG', 'TSLA', 'NVDA', 'NFLX', 'PYPL', 'META', 'SHOP', 'SQ', 'CRWD', 'ETHE', 'UPST', 'CAT', 'HD', 'LRCX', 'AMD', 'ABNB', 'ADBE', 'CRM', 'ROKU', 'SE', 'DDOG', 'NET'] # , 'MGK', 'QYLD'
 
 # ---------------------------------------------------------------------------------------
 def atr_scan():
@@ -149,8 +147,11 @@ def send_email(data):
     subject = f'New ATR move alert'
 
     body = f'''
-    New ATR move detected, consider selling covered call. Stock has made > 5 day standard dev move
-    Stock: {data['stock']} ATR: {data['atr']} ATR Week: {data['atr_week']} 
+    New ATR move alert. Consider selling covered call.
+    Stock has made > 5 day standard dev move
+    Stock: {data['stock']} 
+    ATR: {data['atr']} 
+    ATR Week: {data['atr_week']} 
     Sandard Dev of One Week: {data['st_dev_of_atr_14_one_week']}  
     Current one week range: {data['one_week_range']} 
     '''
@@ -174,13 +175,24 @@ def send_email(data):
 
 #------------------------------------------------------------------------------------------------
 
-schedule.every(30).minutes.do(atr_scan)
+schedule.every(5).minutes.do(atr_scan)
 
 while True:
     schedule.run_pending()
     time.sleep(1)
 
 #------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -226,10 +238,6 @@ while True:
 # run backtest with chart showing dot every time covered call signal was triggered
 
 # have program listen and send em ail anytime trigger
-
-
-
-
 
 
 
