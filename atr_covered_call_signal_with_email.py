@@ -120,7 +120,8 @@ def atr_scan():
                     }
             if data not in results:
                 results.append(data)
-                send_email(data)
+                stock_name = data['stock']
+                send_email(data, stock_name)
 
             # df = df.append(data, ignore_index=True)
             # if , send email 
@@ -139,21 +140,27 @@ def atr_scan():
 
 #------------------------------------------------------------------------------------------------
 
-def send_email(data):
+def send_email(data, stock_name):
     email_sender = 'joshua.becker91@gmail.com'
     email_password = EMAIL_PASSWORD
     email_receiver = 'joshua.becker91@gmail.com' # can enter an array with multiple email receivers
 
-    subject = f'New ATR move alert'
+    subject = f'New ATR move alert on {stock_name}'
 
     body = f'''
-    New ATR move alert. Consider selling covered call.
-    Stock has made > 5 day standard dev move
-    Stock: {data['stock']} 
-    ATR: {data['atr']} 
-    ATR Week: {data['atr_week']} 
-    Sandard Dev of One Week: {data['st_dev_of_atr_14_one_week']}  
-    Current one week range: {data['one_week_range']} 
+Consider selling covered call on {data['stock']}
+
+Stock has made > 5 day standard dev move
+
+Stock: {data['stock']} 
+
+ATR: {round(data['atr'], 2)} 
+
+ATR Week: {round(data['atr_week'], 2)} 
+
+Sandard Dev of One Week: {round(data['st_dev_of_atr_14_one_week'], 2)}  
+
+Current one week range: {round(data['one_week_range'], 2)} 
     '''
 
     # html=f'<h1>BTC is trading at {last_quote}</h1>' can also have html code here to customize styling/embeds/links
