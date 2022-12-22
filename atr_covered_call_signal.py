@@ -88,9 +88,12 @@ print("standard dev range one week: ", st_dev_of_atr_14_one_week)
 if one_week_range > st_dev_of_atr_14_one_week:
     print("exceeds one standard dev of one week range, consider selling covered call here")
 
+# Update to account for upside alerts for covered calls and downside alters for credit put spreads
+
 # ---------------------------------------------------------------------------------------
 
 # Notes
+
 
 # what is the standard dev of that weeks data? or the standard dev of that atr 14 day period?
 
