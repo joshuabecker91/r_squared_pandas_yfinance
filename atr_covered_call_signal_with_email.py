@@ -35,11 +35,16 @@ EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
 # ---------------------------------------------------------------------------------------
 
+alert_list = []
 results = []
 
 # ---------------------------------------------------------------------------------------
 
-stock_list = ['AMZN', 'GOOG', 'TSLA', 'NVDA', 'NFLX', 'PYPL', 'META', 'SHOP', 'SQ', 'CRWD', 'ETHE', 'UPST', 'CAT', 'HD', 'LRCX', 'AMD', 'ABNB', 'ADBE', 'CRM', 'ROKU', 'SE', 'DDOG', 'NET'] # , 'MGK', 'QYLD'
+# stock_list = ['AMZN', 'GOOG', 'TSLA', 'NVDA', 'NFLX', 'PYPL', 'META', 'SHOP', 'SQ', 'CRWD', 'ETHE', 'UPST', 'CAT', 'HD', 'LRCX', 'AMD', 'ABNB', 'ADBE', 'CRM', 'ROKU', 'SE', 'DDOG', 'NET'] # , 'MGK', 'QYLD'
+# stock_list = ['UNH', 'SYK', 'DE', 'HD', 'CNHI', 'CVS', 'NEE', 'AME', 'SANM', 'CSX', 'NKE', 'SBUX', 'FSLR', 'NFLX', 'CTVA', 'CSCO', 'MBLY', 'ED', 'GM', 'AMD', 'ALGM', 'FTNT', 'PYPL', 'NVDA']
+
+# combined
+stock_list = ['AMZN', 'GOOG', 'TSLA', 'NVDA', 'NFLX', 'PYPL', 'META', 'SHOP', 'SQ', 'CRWD', 'ETHE', 'UPST', 'CAT', 'HD', 'LRCX', 'AMD', 'ABNB', 'ADBE', 'CRM', 'ROKU', 'SE', 'DDOG', 'NET', 'UNH', 'SYK', 'DE', 'HD', 'CNHI', 'CVS', 'NEE', 'AME', 'SANM', 'CSX', 'NKE', 'SBUX', 'FSLR', 'CTVA', 'CSCO', 'MBLY', 'ED', 'GM', 'AMD', 'ALGM', 'FTNT', 'PYPL'] # , 'MGK', 'QYLD'
 
 # ---------------------------------------------------------------------------------------
 def atr_scan():
@@ -108,20 +113,31 @@ def atr_scan():
         st_dev_of_atr_14_one_week = (atr_week*.68)
         print("standard dev range one week: ", st_dev_of_atr_14_one_week)
 
+        data = {'stock':stock, 
+                'atr':atr, 
+                'atr_week':atr_week, 
+                'one_week_high':max(one_week_high), 
+                'one_week_low':min(one_week_low), 
+                'st_dev_of_atr_14_one_week':st_dev_of_atr_14_one_week, 
+                'one_week_range':one_week_range
+                }
+
         if one_week_range > st_dev_of_atr_14_one_week:
-            print(f" {stock}: {one_week_range} exceeds one standard dev of one week range {st_dev_of_atr_14_one_week}, consider selling covered call here")
-            data = {'stock':stock, 
-                    'atr':atr, 
-                    'atr_week':atr_week, 
-                    'one_week_high':max(one_week_high), 
-                    'one_week_low':min(one_week_low), 
-                    'st_dev_of_atr_14_one_week':st_dev_of_atr_14_one_week, 
-                    'one_week_range':one_week_range
-                    }
-            if data not in results:
+            print(f" {stock}: {one_week_range} exceeds one standard dev of one week range {st_dev_of_atr_14_one_week}")
+            stock_name = data['stock']
+            if stock_name not in alert_list:
+                alert_list.append(stock_name)
                 results.append(data)
-                stock_name = data['stock']
                 send_email(data, stock_name)
+            # else:
+            #     results.remove(data)
+            #     results.append(data)
+        
+        # elif one_week_range <= st_dev_of_atr_14_one_week:
+        #     if data in results:
+        #         alert_list.remove(stock_name)
+        #         results.remove(data)
+
 
             # df = df.append(data, ignore_index=True)
             # if , send email 
@@ -138,6 +154,11 @@ def atr_scan():
 
     df.to_csv('atr_signals.csv')
 
+    # print(time.now())
+    t = time.localtime()
+    current_time = time.strftime("%H:%M:%S", t)
+    print(current_time)
+
 #------------------------------------------------------------------------------------------------
 
 def send_email(data, stock_name):
@@ -148,9 +169,7 @@ def send_email(data, stock_name):
     subject = f'New ATR move alert on {stock_name}'
 
     body = f'''
-Consider selling covered call on {data['stock']}
-
-Stock has made > 5 day standard dev move
+{data['stock']} has made > 5 day standard dev move
 
 Stock: {data['stock']} 
 
@@ -195,7 +214,7 @@ while True:
 
 #------------------------------------------------------------------------------------------------
 
-
+# Consider making the alerts specify if it has reached the ATR move on a move up or move down
 
 
 
