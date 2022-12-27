@@ -33,12 +33,13 @@ tsm amat length of arrays are not the same
 mu tsm length of arrays are not the same
 amat nvda length of arrays are not the same
 mu nvda length of arrays are not the same
+amat asml length of arrays are not the same
 mu asml length of arrays are not the same
-klac avgo length of arrays are not the same
+amat avgo length of arrays are not the same
 mu avgo length of arrays are not the same
-txn klac length of arrays are not the same
+amat txn length of arrays are not the same
 mu txn length of arrays are not the same
-adi klac length of arrays are not the same
+amat adi length of arrays are not the same
 mu adi length of arrays are not the same
 amat klac length of arrays are not the same
 mu klac length of arrays are not the same
