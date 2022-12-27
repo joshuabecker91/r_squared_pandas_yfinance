@@ -327,4 +327,3 @@ sector(xlc)
 sector(smh)
 
 # crypto and forex...yfinance tickers and look into
-# bring timeframe down to 60 minutes to increase accuracy. can also add more stocks to list
