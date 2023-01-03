@@ -326,4 +326,17 @@ sector(qqq)
 sector(xlc)
 sector(smh)
 
+# QQQ Full List
+# qqq_full_list = ['AAPL','AMZN','GOOG','GOOGL','NVDA','TSLA','META','PEP','AVGO','COST','CSCO','TMUS','ADBE','TXN','CMCSA','HON','AMGN','NFLX','QCOM','SBUX','INTU','INTC','GILD','AMD','ADP','ISRG','MDLZ','AMAT','ADI','PYPL','BKNG','REGN','VRTX','MRNA','CSX','FISV','ATVI','LRCX','MU','KLAC','MNST','ORLY','CHTR','KDP','KHC','SNPS','AEP','ASML','MAR','CTAS','CDNS','DXCM','EXC','MELI','PANW','PAYX','AZN','NXPI','ADSK','ROST','BIIB','LULU','MCHP','XEL','FTNT','PDD','ENPH','PCAR','ABNB','WDAY','IDXX','EA','WBA','ILMN','MRVL','CSGP','ODFL','DLTR','BKR','CTSH','GFS','CPRT','CEG','VRSK','JD','FAST','FANG','SGEN','WBD','CRWD','SIRI','EBAY','DDOG','ANSS','TEAM','RIVN','ZM','ALGN','ZS','LCID',]
+# sector(qqq_full_list)
+
+
+# qqq_greater_1_percent = ['AAPL','AMZN','GOOG','GOOGL','NVDA','TSLA','META','PEP','AVGO','COST','CSCO','TMUS','ADBE','TXN','CMCSA','HON','AMGN','NFLX','QCOM','SBUX','INTU',]
+# sector(qqq_greater_1_percent)
+
+
 # crypto and forex...yfinance tickers and look into
+
+# Forex
+# forex = ['EURUSD=X', 'JPY=X', 'GBPUSD=X', 'AUDUSD=X', 'NZDUSD=X',]
+# sector(forex)
