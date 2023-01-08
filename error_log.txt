@@ -39,9 +39,8 @@ amat avgo length of arrays are not the same
 mu avgo length of arrays are not the same
 amat txn length of arrays are not the same
 mu txn length of arrays are not the same
-qcom adi length of arrays are not the same
+amat adi length of arrays are not the same
 mu adi length of arrays are not the same
-klac lrcx length of arrays are not the same
 qcom klac length of arrays are not the same
 intc klac length of arrays are not the same
 amat klac length of arrays are not the same
@@ -50,5 +49,4 @@ mu lrcx length of arrays are not the same
 mu qcom length of arrays are not the same
 intc mu length of arrays are not the same
 mu amat length of arrays are not the same
-amd amat length of arrays are not the same
 mu amd length of arrays are not the same
