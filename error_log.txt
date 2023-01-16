@@ -41,6 +41,7 @@ amat txn length of arrays are not the same
 mu txn length of arrays are not the same
 amat adi length of arrays are not the same
 mu adi length of arrays are not the same
+klac lrcx length of arrays are not the same
 qcom klac length of arrays are not the same
 intc klac length of arrays are not the same
 amat klac length of arrays are not the same
