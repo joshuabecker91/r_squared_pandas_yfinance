@@ -9,7 +9,7 @@ R Squared Correlation Trading System | Python, Pandas, numpy, pendulum, matplotl
 
 Currently in development...
 
-Example video of the program running.
+Example video of the program running
 
 https://user-images.githubusercontent.com/98496684/208353463-afc7a1d4-fd01-4be0-9d16-0477609dc1f3.mp4
 
