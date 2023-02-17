@@ -1,5 +1,4 @@
 amat aapl length of arrays are not the same
-intc aapl length of arrays are not the same
 amat msft length of arrays are not the same
 amat v length of arrays are not the same
 amat nvda length of arrays are not the same
@@ -21,7 +20,7 @@ meta nflx length of arrays are not the same
 nvda nflx length of arrays are not the same
 tsla nflx length of arrays are not the same
 pypl nflx length of arrays are not the same
-adbe nflx length of arrays are not the same
+nflx adbe length of arrays are not the same
 meta nflx length of arrays are not the same
 googl nflx length of arrays are not the same
 nflx chtr length of arrays are not the same
@@ -38,19 +37,15 @@ amat asml length of arrays are not the same
 mu asml length of arrays are not the same
 amat avgo length of arrays are not the same
 mu avgo length of arrays are not the same
-qcom txn length of arrays are not the same
-intc txn length of arrays are not the same
+amat txn length of arrays are not the same
 mu txn length of arrays are not the same
-adi klac length of arrays are not the same
+amat adi length of arrays are not the same
 mu adi length of arrays are not the same
-klac lrcx length of arrays are not the same
-qcom klac length of arrays are not the same
-intc klac length of arrays are not the same
 amat klac length of arrays are not the same
+mu klac length of arrays are not the same
 amd klac length of arrays are not the same
 mu lrcx length of arrays are not the same
 mu qcom length of arrays are not the same
 intc mu length of arrays are not the same
 mu amat length of arrays are not the same
-amd amat length of arrays are not the same
 mu amd length of arrays are not the same
