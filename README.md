@@ -20,6 +20,6 @@ QCOM CRM example of generated matplotlib chart
 
 Canidates CSV example google doc with header / backtest results  
 
-![image](https://user-images.githubusercontent.com/98496684/219765720-12cc4e4c-cbae-4759-9d8b-74e3d1da3ff4.png)
+![image](https://user-images.githubusercontent.com/98496684/219768004-508bbac2-651a-4188-9f25-0283404594e0.png)
 
 "# r_squared_pandas_yfinance" 
