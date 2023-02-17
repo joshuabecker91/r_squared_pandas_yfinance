@@ -1,10 +1,11 @@
 R Squared Correlation Trading System | Python, Pandas, numpy, pendulum, matplotlib, yfinance, csv
 
 • Identify correlatation between two stocks.  
-• Monitor the one year average ratio and the spread between the current ratio and the average ratio.  
+• Calculate the one year average ratio 
+• Calculate and plot the spread between the current ratio and the average ratio every 30 minutes over one year.  
 • Pandas dataframe is utilized from data retrieved from yfinance and then exported to a csv.  
 • Plot / graph is generated with standard deviation lines via matplotlib.  
-• Trade results for over 400 pairs are generated and outputed to candidates.csv.  
+• Backtest algorithm runs and trade results for over 400 pairs are generated and outputed to candidates.csv.  
 • All sectors file will run 400+ pairs, single pair will run any pair you want to enter with custom input.  
 
 Currently in development...  
