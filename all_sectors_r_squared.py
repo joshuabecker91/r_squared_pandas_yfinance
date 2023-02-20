@@ -25,8 +25,8 @@ import matplotlib.pyplot as plt
 
 def correlation(a, b):
 
-    # a = input('Stock 1:') # can use for manual input - single_pair_r_squared
-    # b = input('Stock 2:') # can use for manual input - single_pair_r_squared
+    # a = input('Stock 1:') # can use for manual input - see single_pair_r_squared.py
+    # b = input('Stock 2:') # can use for manual input - see single_pair_r_squared.py
 
     # Stock 1 should be set as the lower priced stock so ratio > 1.0. Below code ensures this.
     stock_1_current_price = yf.Ticker(a).history(period='1d', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
