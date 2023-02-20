@@ -15,19 +15,20 @@ import pendulum
 import matplotlib.pyplot as plt
 # pip install matplotlib pendulum
 
-# can import list of spy 500 with yahoo_fin seperate library
+# can import list of spy 500 with yahoo_fin separate library
 # tickers_sp500()
 
-# better to loop through spy 500 or do top 20 holdings in each sector one at a time?
+# spy 500 great but better to do top 20 holdings in each sector one at a time. 
+# Don't want to be long / short a pair that are in different sectors with different macroeconomical risks.
 
 # ---------------------------------------------------------------------------------------
 
 def correlation(a, b):
 
-    # a = input('Stock 1:')
-    # b = input('Stock 2:')
+    # a = input('Stock 1:') # can use for manual input - single_pair_r_squared
+    # b = input('Stock 2:') # can use for manual input - single_pair_r_squared
 
-    # you want stock 1 to be the smaller one so ratio > 1.0 so we reassign if input backwards
+    # Stock 1 should be set as the lower priced stock so ratio > 1.0. Below code ensures this.
     stock_1_current_price = yf.Ticker(a).history(period='1d', # valid periods: 1d,5d,1mo,3mo,6mo,1y,2y,5y,10y,ytd,max
                                     interval='1d', # valid intervals: 1m,2m,5m,15m,30m,60m,90m,1h,1d,5d,1wk,1mo,3mo
                                     actions=False)
