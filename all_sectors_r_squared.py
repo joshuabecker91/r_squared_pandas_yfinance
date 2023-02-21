@@ -103,7 +103,7 @@ def correlation(a, b):
 
     # ---------------------------------------------------------------------------------------
 
-    # ratio - we should get a rolling one year average? rolling 90 day average?
+    # ratio - Want to upgrade to get a rolling one year average
     ratio = []
     for x in range(0, len(time_series1)):
         # print(time_series2[x], time_series1[x])
@@ -162,8 +162,7 @@ def correlation(a, b):
 
     # ---------------------------------------------------------------------------------------
 
-    # find biggest open loss for each trade
-    # pnl graph / equity graph
+    # Would be great to add pnl graph / equity graph for trading each pair
 
     # backtest pnl
     trades_pnl = []
@@ -235,7 +234,7 @@ def correlation(a, b):
     print("average ratio: ", average_ratio)
     print("total return: ", total_return*100, "%")
 
-    # we want to make it monitor the ratios every minute, not just once a day...
+    # we want to update the average ratio so its 250 trading days prior to that day, a real time rolling figure...
 
     # csv write line for each loop
     with open('candidates.csv', 'a', newline='') as csvfile:
@@ -253,7 +252,6 @@ def correlation(a, b):
                             'Max Open Loss' : max_open_loss / (total_capital/100),
                             'R Squared' : R_sq,
                             'Total Return' : total_return})
-        # for item in data:
 
     # ---------------------------------------------------------------------------------------
 
@@ -272,7 +270,8 @@ def correlation(a, b):
 
 # ---------------------------------------------------------------------------------------
 
-# 2-3 pairs running per sector
+# Diverse Allocation would be 10 pairs and have 2-3 pairs running in each sector. Will minimize volatility of overall account.
+
 # XLY Consumer Discretionary
 xly = ['amzn', 'tsla', 'mcd', 'hd', 'low', 'nke', 'sbux', 'tjx', 'tgt', 'bkng']
 
@@ -301,13 +300,12 @@ xlc = ['meta', 'googl', 'nflx', 'chtr', 'cmcsa', 'tmus', 'dis', 't', 'vz']
 # SMH Semiconductors 
 smh = ['tsm', 'nvda', 'asml', 'avgo', 'txn', 'adi', 'klac', 'lrcx', 'qcom', 'intc', 'amat', 'mu', 'amd'] # 'intc', 'amat', error
 
-# lots of dividends - avoid for now, don't want to be short and pay the dividends
-# XLE Energy
-# XLRE Real Estate
-# XLU Utilities
+# Lots of dividends - avoid for now, don't want to be short and pay the dividends:
+# XLE Energy, XLRE Real Estate, XLU Utilities
 
 # --------------------------------------------------------------------------------------
 
+# Run the program for every possible combination for two stocks within the same sector
 def sector(stock_list):
     for x in range(0,len(stock_list)):
         for y in range(x+1,len(stock_list)):
@@ -328,19 +326,19 @@ sector(xlc)
 sector(smh)
 
 
+
+# Other lists below, simply uncomment if you want to run these:
+
 # qqq_greater_1_percent = ['AAPL','AMZN','GOOG','GOOGL','NVDA','TSLA','META','PEP','AVGO','COST','CSCO','TMUS','ADBE','TXN','CMCSA','HON','AMGN','NFLX','QCOM','SBUX','INTU',]
 # sector(qqq_greater_1_percent)
-
 
 # QQQ Full List
 # qqq_full_list = ['AAPL','AMZN','GOOG','GOOGL','NVDA','TSLA','META','PEP','AVGO','COST','CSCO','TMUS','ADBE','TXN','CMCSA','HON','AMGN','NFLX','QCOM','SBUX','INTU','INTC','GILD','AMD','ADP','ISRG','MDLZ','AMAT','ADI','PYPL','BKNG','REGN','VRTX','MRNA','CSX','FISV','ATVI','LRCX','MU','KLAC','MNST','ORLY','CHTR','KDP','KHC','SNPS','AEP','ASML','MAR','CTAS','CDNS','DXCM','EXC','MELI','PANW','PAYX','AZN','NXPI','ADSK','ROST','BIIB','LULU','MCHP','XEL','FTNT','PDD','ENPH','PCAR','ABNB','WDAY','IDXX','EA','WBA','ILMN','MRVL','CSGP','ODFL','DLTR','BKR','CTSH','GFS','CPRT','CEG','VRSK','JD','FAST','FANG','SGEN','WBD','CRWD','EBAY','DDOG','ANSS','TEAM','RIVN','ZM','ALGN','ZS','LCID',]
 # sector(qqq_full_list) #removed siri because of data error
 
-
 # crypto and forex...yfinance tickers and look into
 # crypto = ['BTC-USD', 'ETH-USD', 'USDT-USD', 'USDC-USD', 'USDBNB-USD', 'USDXRP-USD', 'USDBUSD-USD', 'USDDOGE-USD', 'USDADA-USD', 'USDMATIC-USD', 'USDDAI-USD', 'TRON USDWTRX-USD', 'USDLTC-USD']
 # sector(crypto)
-
 
 # Forex
 # forex = ['EURUSD=X', 'JPY=X', 'GBPUSD=X', 'AUDUSD=X', 'NZDUSD=X',]
