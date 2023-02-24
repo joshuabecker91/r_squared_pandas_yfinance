@@ -260,13 +260,19 @@ def correlation(a, b):
     plt.style.use('dark_background')
     plt.plot(dt_list, spread, linewidth=2)
     # plot standard dev line range and equilibrium zero line
+    plt.axhline(y=st_dev*2, xmin=0.0, xmax=1.0, color='m')
     plt.axhline(y=st_dev, xmin=0.0, xmax=1.0, color='r')
     plt.axhline(y=0, xmin=0.0, xmax=1.0, color='w')
     plt.axhline(y=(st_dev*-1), xmin=0.0, xmax=1.0, color='r')
-    plt.savefig((cwd + '/figs/' + f'{a}_{b}.png'))
-    plt.clf()
-    # plt.show()
-    # add standard dev line
+    plt.axhline(y=(st_dev*-2), xmin=0.0, xmax=1.0, color='m')
+    if R_sq > .65:
+        plt.savefig((cwd + '/figs_high/' + f'{a}_{b}.png'))
+        plt.clf()
+    else:
+        plt.savefig((cwd + '/figs_low/' + f'{a}_{b}.png'))
+        plt.clf()
+        # plt.show()
+        # add standard dev line
 
 # ---------------------------------------------------------------------------------------
 
