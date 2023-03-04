@@ -14,7 +14,7 @@ Technologies: Python, Pandas, numpy, pendulum, matplotlib, yfinance, csv
 
 Project currently in development...
 
-![image](https://user-images.githubusercontent.com/98496684/222924938-264c12a5-0b8c-4b4c-b46b-15a37ecdd1bd.png)
+![image](https://user-images.githubusercontent.com/98496684/222924951-fa371a18-d432-4ea5-ba71-9b112b515e43.png)
 
 https://user-images.githubusercontent.com/98496684/208353463-afc7a1d4-fd01-4be0-9d16-0477609dc1f3.mp4   
    
