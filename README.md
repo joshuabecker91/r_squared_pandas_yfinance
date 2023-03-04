@@ -1,18 +1,18 @@
-Correlation Pairs Trading | Python, pandas, numpy, matplotlib
+Correlation Pairs Trading | Python, pandas, numpy, matplotlib  
 
-Algorithmic stock trading system being developed, deployed on AWS EC2 w/ Interactive Brokers.
+Algorithmic stock trading system being developed, deployed on AWS EC2 w/ Interactive Brokers.  
 
-• Identify r squared correlatation between two stocks.
-• Calculate the one year average ratio between stock prices over the course of a year, over 1,700 data points.
-• Calculate and plot the spread between the current ratio and the average ratio every 60 minutes over one year.
-• Pandas dataframe is utilized from data retrieved from yfinance and then exported to a csv.
-• Plot / graph is generated with standard deviation lines via matplotlib.
-• Backtest algorithm runs and trade results for over 400 pairs are generated and outputed to candidates.csv.
-• All sectors file will run 400+ pairs, single pair will run any pair you want to enter with custom input.
+• Identify r squared correlatation between two stocks.  
+• Calculate the one year average ratio between stock prices over the course of a year, over 1,700 data points.  
+• Calculate and plot the spread between the current ratio and the average ratio every 60 minutes over one year.  
+• Pandas dataframe is utilized from data retrieved from yfinance and then exported to a csv.  
+• Plot / graph is generated with standard deviation lines via matplotlib.  
+• Backtest algorithm runs and trade results for over 400 pairs are generated and outputed to candidates.csv.  
+• All sectors file will run 400+ pairs, single pair will run any pair you want to enter with custom input.  
 
-Technologies: Python, Pandas, numpy, pendulum, matplotlib, yfinance, csv
+Technologies: Python, Pandas, numpy, pendulum, matplotlib, yfinance, csv  
 
-Project currently in development...
+Project currently in development...   
 
 https://user-images.githubusercontent.com/98496684/208353463-afc7a1d4-fd01-4be0-9d16-0477609dc1f3.mp4   
    
