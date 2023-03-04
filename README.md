@@ -14,10 +14,10 @@ Technologies: Python, Pandas, numpy, pendulum, matplotlib, yfinance, csv
 
 Project currently in development...
 
-QCOM CRM example  
+https://user-images.githubusercontent.com/98496684/208353463-afc7a1d4-fd01-4be0-9d16-0477609dc1f3.mp4   
+   
+QCOM CRM example of generated matplotlib chart  
   
-![image](https://user-images.githubusercontent.com/98496684/222924787-d9da8184-33d0-4070-9ab3-f97452cd9a19.png)
-  
-![image](https://user-images.githubusercontent.com/98496684/222924771-85fb2b83-b982-4c0a-b80d-f29fae698f84.png)
+![image](https://user-images.githubusercontent.com/98496684/221295094-7037985e-a323-491a-8164-fa92614344ca.png)
 
-# r_squared_pandas_yfinance
+![image](https://user-images.githubusercontent.com/98496684/219768270-ec2b5bb3-bb3c-43d4-8f4f-2c8cba9a9044.png)   
