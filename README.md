@@ -12,6 +12,8 @@ Algorithmic stock trading system being developed, deployed on AWS EC2 w/ Interac
 
 Technologies: Python, Pandas, numpy, pendulum, matplotlib, yfinance, csv
 
+Project currently in development...
+
 QCOM CRM example  
   
 ![image](https://user-images.githubusercontent.com/98496684/222924787-d9da8184-33d0-4070-9ab3-f97452cd9a19.png)
