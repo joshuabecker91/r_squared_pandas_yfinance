@@ -1,8 +1,8 @@
 Correlation Pairs Trading | Python, pandas, numpy, matplotlib  
 
-Algorithmic stock trading system being developed, deployed on AWS EC2 w/ Interactive Brokers.  
+Algorithmic stock trading system, deployed on AWS EC2 w/ Interactive Brokers.  
 
-• Identify r squared correlatation between two stocks.  
+• Identify r squared correlation between two stocks.  
 • Calculate the one year average ratio between stock prices over the course of a year, over 1,700 data points.  
 • Calculate and plot the spread between the current ratio and the average ratio every 60 minutes over one year.  
 • Pandas dataframe is utilized from data retrieved from yfinance and then exported to a csv.  
