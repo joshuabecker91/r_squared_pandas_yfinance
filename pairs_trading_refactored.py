@@ -288,7 +288,13 @@ def pairs_trade(ticker_a, ticker_b): # pass in a and b with loop
     create_graph(stock_1, stock_2, stock_1_data, pair_daily_spreads, st_dev, r_sq)
 
     # Backtest
-    backtest_pair(stock_1, stock_2, stock_1_closing_prices, stock_2_closing_prices, pair_daily_spreads, st_dev, r_sq, average_ratio)
+    try:
+        backtest_pair(stock_1, stock_2, stock_1_closing_prices, stock_2_closing_prices, pair_daily_spreads, st_dev, r_sq, average_ratio)
+    except:
+        print("error backtesting, length of trades is zero")
+        with open('error_log.txt', 'a') as f:
+            f.write(f'error backtesting trade performance for {stock_1} and {stock_2}')
+            f.write('\n')
     # backtest_pair(stock_1, stock_2, stock_1_closing_prices, stock_2_closing_prices, pair_daily_spreads, st_dev*1.1, r_sq, average_ratio)
     # backtest_pair(stock_1, stock_2, stock_1_closing_prices, stock_2_closing_prices, pair_daily_spreads, st_dev*1.2, r_sq, average_ratio)
     # backtest_pair(stock_1, stock_2, stock_1_closing_prices, stock_2_closing_prices, pair_daily_spreads, st_dev*1.25, r_sq, average_ratio)
@@ -367,20 +373,27 @@ def run_pairs_all_sectors():
     sector(xlc)
     sector(smh)
 
-
 nowtime = str(datetime.datetime.now())
+
+# Run once on first launch, then scheduler takes over
+run_pairs_all_sectors()
+print("I'm working...", str(datetime.datetime.now()), "First Run")
 
 def job(t):
     # Delete these three files to start clean run
-    os.remove('error_log.txt')
-    os.remove('candidates_high.csv')
-    os.remove('candidates_low.csv')
+    try:
+        os.remove('error_log.txt')
+        os.remove('candidates_high.csv')
+        os.remove('candidates_low.csv')
+    except:
+        pass
+    time.sleep(5)
     # Run Main Pairs Trading Program on All Sectors
     run_pairs_all_sectors()
     # Confirm that the program is still working as of: time
     print("I'm working...", str(datetime.datetime.now()), t)
 
-for i in ["07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00"]:
+for i in ["06:40", "07:15", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00"]:
     schedule.every().monday.at(i).do(job, i)
     schedule.every().tuesday.at(i).do(job, i)
     schedule.every().wednesday.at(i).do(job, i)
